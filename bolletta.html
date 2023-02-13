@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>bolletta</title>
+  </head>
+  <body>
+    <h1>Bolletta</h1>
+
+    
+
+    <table class="table">
+  <tbody>
+    <tr>
+      <th>Codice cliente</th>
+      <td><input type="text" name="" id="codice"> </td>
+    </tr>
+    <tr>
+      <th>Kw/h consumati</th>
+      <td><input type="text" name="" id="consumo" >  </td>
+    </tr>
+    <tr>
+       <th>Costo kw/h</th>
+       <td><input type="text" name="" id="costokw" disabled  value="0.03"> </td>
+    </tr>
+    <tr>
+        <th>Iva</th>
+        <td><input type="text" name="" id="iva" disabled  value="0.22"> </td>
+     </tr>
+     <tr>
+        <th>Canone</th>
+        <td><input type="text" name="" id="canone" disabled value="20"> </td>
+     </tr>
+     <tr>
+        <button  id="add" type="button" onclick="aggiungi()" class="btn btn-primary">aggiungi utente</button>
+        
+     </tr>
+  </tbody>
+</table>
+
+
+    <table border="1" id="tab">
+        <thead>
+        <tr>
+            <td> <b> Codice</b></td>
+            <td> <b> Consumo*Costo KWH</b></td>
+            <td> <b> Canone</b></td>
+            <td> <b> Iva</b></td>
+            <td> <b> Totale</b></td>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+
+    </table>
+    <script>
+        function aggiungi(){
+            let codCliente=document.getElementById("codice").value;
+            let consumo=parseInt(document.getElementById("consumo").value);
+            let iva=parseFloat(document.getElementById("iva").value);
+            let costokw=parseFloat(document.getElementById("costokw").value);
+            let canone=parseFloat(document.getElementById("canone").value);
+
+            let totCons=consumo*costokw;
+            let totIva=totCons*iva;
+            let totale=totCons+canone+totIva;
+
+            let t=document.getElementById("tab");
+            let tbody=t.children[1];
+            let stringa=tbody.innerHTML;
+            stringa+=`<tr><td>${codCliente}</td>`;
+            stringa+=`<td>${consumo}*${costokw}=${totCons.toFixed(2)}</td>`;
+            stringa+=`<td>${canone}</td>`;
+            stringa+=`<td>${totCons}*${iva*100}%=${totIva.toFixed(2)}</td>`;
+            stringa+=`<td>${totale.toFixed(2)}€</td></tr>`;
+            tbody.innerHTML=stringa;
+            document.getElementById("codice").value="";
+            document.getElementById("consumo").value="";
+        }
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
